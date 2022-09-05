@@ -13,6 +13,7 @@ Not any test script yet.
 
 * [React](https://reactjs.org/) - The web framework used
 * [Typescript](https://www.typescriptlang.org/) - Programming Language used
+* [Emotion](https://emotion.sh/docs/introduction) - Styling library used
 * [Vite](https://vitejs.dev/) - Scaffolding tool
 
 ## Contributing
