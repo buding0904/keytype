@@ -87,20 +87,26 @@ const TextChecker: FC<TextCheckerProps> = ({ text, onFinished }) => {
         return <Letter key={i} status={status}>{letter}</Letter>
       })
     }
-    <input
-      value={input}
-      ref={inputRef}
-      autoFocus
-      maxLength={text.length}
-      style={{
-        height: 0,
-        width: 0,
-        border: 'none',
-        outline: 'none',
-        padding: 0,
-      }}
-      onChange={e => setInput(e.target.value)}
-    ></input>
+    <form>
+      <input
+        value={input}
+        ref={inputRef}
+        autoFocus
+
+        // used for disabling any IMEs.
+        type="password"
+        autoComplete="false"
+        maxLength={text.length}
+        style={{
+          height: 0,
+          width: 0,
+          border: 'none',
+          outline: 'none',
+          padding: 0,
+        }}
+        onChange={e => setInput(e.target.value)}
+      ></input>
+    </form>
   </div>
 }
 
