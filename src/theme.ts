@@ -3,6 +3,7 @@ export * from '@tilemoon/react-theme-manager'
 
 interface ThemeColors {
   pageBg: string,
+  font: string,
   keyFont: string,
   keyBorder: string,
 }
@@ -14,6 +15,7 @@ const ThemeLight: KeyKeyTheme = {
   name: 'light',
   colors: {
     pageBg: '#1D1D1D',
+    font: '#ffffff',
     keyFont: '#ffffff',
     keyBorder: '#757678',
   },
@@ -23,6 +25,7 @@ const ThemeDark: KeyKeyTheme = {
   name: 'dark',
   colors: {
     pageBg: '#1D1D1D',
+    font: '#ffffff',
     keyFont: '#ffffff',
     keyBorder: '#757678',
   },

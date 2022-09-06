@@ -1,16 +1,24 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { css } from '@emotion/css'
 import { KeyKeyTheme, useTheme } from '../theme'
+import { onKeydown } from '../events'
 
 export enum KeyWidth {
   w0 = 72,
   w1 = 84,
   w2 = 98,
-  w3 = 124,
-  wSpace = 300,
+  w3 = 128,
+  wSpace = 312,
+}
+
+const enum HighlightColor {
+  pressed = 'rgba(122, 122, 122, 0.7)',
+  correct = 'rgba(100, 200, 100, 0.5)',
+  typo = 'rgba(255, 80, 120, 0.5)',
 }
 
 interface KeyProps {
+  code: string
   textPosition?: 'cc' | 'ct' | 'cl' | 'cr' | 'cb' | 'lb' | 'rb'
   fontSize?: number
   width?: number
@@ -20,6 +28,7 @@ interface KeyProps {
 }
 
 const Key: FC<KeyProps> = ({
+  code,
   textPosition = 'cc',
   fontSize = 14,
   height = 54,
@@ -28,6 +37,7 @@ const Key: FC<KeyProps> = ({
   children,
 }) => {
   const { theme } = useTheme<KeyKeyTheme>()
+  const [highlightCss, setHighlightCss] = useState('')
 
   const textPositionCss = useMemo<string>(() => {
     switch(textPosition) {
@@ -47,6 +57,27 @@ const Key: FC<KeyProps> = ({
     return ''
   }, [textPosition])
 
+  const highlight = (color: HighlightColor) => {
+    setHighlightCss(`
+      background-color: ${color};
+    `)
+
+    setTimeout(() => {
+      setHighlightCss(`
+        transition: background-color 3s;
+        background-color: unset;
+      `)
+    }, 200)
+  }
+
+  useEffect(() => {
+    onKeydown(e => {
+      if (e.code == code) {
+        highlight(HighlightColor.typo)
+      }
+    })
+  }, [code])
+
   return <div style={style} className={css`
     font-size: ${fontSize}px;
     color: ${theme.colors.keyFont};
@@ -58,6 +89,7 @@ const Key: FC<KeyProps> = ({
     flex-direction: column;
     box-sizing: border-box;
     padding: 4px;
+    ${highlightCss}
     ${textPositionCss}
   `}>
     {children}

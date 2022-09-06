@@ -30,95 +30,95 @@ const KeyBoard: FC<KeyBoardProps> = () => {
     }
   `}>
     <KeyBoardRow>
-      <Key>`</Key>
-      <Key>1</Key>
-      <Key>2</Key>
-      <Key>3</Key>
-      <Key>4</Key>
-      <Key>5</Key>
-      <Key>6</Key>
-      <Key>7</Key>
-      <Key>8</Key>
-      <Key>9</Key>
-      <Key>0</Key>
-      <Key>-</Key>
-      <Key>=</Key>
-      <Key width={KeyWidth.w1} fontSize={12} textPosition="rb">delete</Key>
+      <Key code="Escape">`</Key>
+      <Key code="Digit1">1</Key>
+      <Key code="Digit2">2</Key>
+      <Key code="Digit2">3</Key>
+      <Key code="Digit4">4</Key>
+      <Key code="Digit5">5</Key>
+      <Key code="Digit6">6</Key>
+      <Key code="Digit7">7</Key>
+      <Key code="Digit8">8</Key>
+      <Key code="Digit9">9</Key>
+      <Key code="Digit0">0</Key>
+      <Key code="Minus">-</Key>
+      <Key code="Equal">=</Key>
+      <Key code="Backspace" width={KeyWidth.w1} fontSize={12} textPosition="rb">delete</Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
-      <Key width={KeyWidth.w1} fontSize={12} textPosition="lb">tab</Key>
-      <Key>Q</Key>
-      <Key>W</Key>
-      <Key>E</Key>
-      <Key>R</Key>
-      <Key>T</Key>
-      <Key>Y</Key>
-      <Key>U</Key>
-      <Key>I</Key>
-      <Key>O</Key>
-      <Key>P</Key>
-      <Key>[</Key>
-      <Key>]</Key>
-      <Key>\</Key>
+      <Key code="Tab" width={KeyWidth.w1} fontSize={12} textPosition="lb">tab</Key>
+      <Key code="KeyQ">Q</Key>
+      <Key code="KeyW">W</Key>
+      <Key code="KeyE">E</Key>
+      <Key code="KeyR">R</Key>
+      <Key code="KeyT">T</Key>
+      <Key code="KeyY">Y</Key>
+      <Key code="KeyU">U</Key>
+      <Key code="KeyI">I</Key>
+      <Key code="KeyO">O</Key>
+      <Key code="KeyP">P</Key>
+      <Key code="BracketLeft">[</Key>
+      <Key code="BracketRight">]</Key>
+      <Key code="BackSlash">\</Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
-      <Key width={KeyWidth.w2} fontSize={12} textPosition="lb">caps lock</Key>
-      <Key>A</Key>
-      <Key>S</Key>
-      <Key>D</Key>
-      <Key>F</Key>
-      <Key>G</Key>
-      <Key>H</Key>
-      <Key>J</Key>
-      <Key>K</Key>
-      <Key>L</Key>
-      <Key>;</Key>
-      <Key>'</Key>
-      <Key width={KeyWidth.w2} fontSize={12} textPosition="cr">
+      <Key code="CapsLock" width={KeyWidth.w2} fontSize={12} textPosition="lb">caps lock</Key>
+      <Key code="KeyA">A</Key>
+      <Key code="KeyS">S</Key>
+      <Key code="KeyD">D</Key>
+      <Key code="KeyF">F</Key>
+      <Key code="KeyG">G</Key>
+      <Key code="KeyH">H</Key>
+      <Key code="KeyJ">J</Key>
+      <Key code="KeyK">K</Key>
+      <Key code="KeyL">L</Key>
+      <Key code="Semicolon">;</Key>
+      <Key code="Quote">'</Key>
+      <Key code="Enter" width={KeyWidth.w2} fontSize={12} textPosition="cr">
         <span style={{ marginBottom: 16 }}>enter</span>
         <span>return</span>
       </Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
-      <Key width={KeyWidth.w3} fontSize={12} textPosition="lb">shift</Key>
-      <Key>Z</Key>
-      <Key>X</Key>
-      <Key>C</Key>
-      <Key>V</Key>
-      <Key>B</Key>
-      <Key>N</Key>
-      <Key>M</Key>
-      <Key>,</Key>
-      <Key>.</Key>
-      <Key>/</Key>
-      <Key width={KeyWidth.w3} fontSize={12} textPosition="rb">shift</Key>
+      <Key code="ShiftLeft" width={KeyWidth.w3} fontSize={12} textPosition="lb">shift</Key>
+      <Key code="KeyZ">Z</Key>
+      <Key code="KeyX">X</Key>
+      <Key code="KeyC">C</Key>
+      <Key code="KeyV">V</Key>
+      <Key code="KeyB">B</Key>
+      <Key code="KeyN">N</Key>
+      <Key code="KeyM">M</Key>
+      <Key code="Comma">,</Key>
+      <Key code="Period">.</Key>
+      <Key code="Slash">/</Key>
+      <Key code="ShiftRight" width={KeyWidth.w3} fontSize={12} textPosition="rb">shift</Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
-      <Key fontSize={12} textPosition="lb">fn</Key>
-      <Key fontSize={12} textPosition="cb">control</Key>
-      <Key fontSize={12} textPosition="cb">option</Key>
-      <Key width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
-      <Key width={KeyWidth.wSpace}></Key>
-      <Key width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
-      <Key fontSize={12} textPosition="cb">option</Key>
-      <Key fontSize={12}><img width={20} src={ArrowLeft} /></Key>
+      <Key code="Fn" fontSize={12} textPosition="lb">fn</Key>
+      <Key code="ControlLeft" fontSize={12} textPosition="cb">control</Key>
+      <Key code="AltLeft" fontSize={12} textPosition="cb">option</Key>
+      <Key code="MetaLeft" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
+      <Key code="Space" width={KeyWidth.wSpace}></Key>
+      <Key code="MetaRight" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
+      <Key code="AltRight" fontSize={12} textPosition="cb">option</Key>
+      <Key code="ArrowLeft" fontSize={12}><img width={20} src={ArrowLeft} /></Key>
       <div className={css`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
       `}>
-        <Key height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '4px 4px 0px 0px' }}>
+        <Key code="ArrowUp" height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '4px 4px 0px 0px' }}>
           <img width={20} src={ArrowLeft} style={{ transform: 'rotate(90deg)' }} />
         </Key>
-        <Key height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '0px 0px 4px 4px' }}>
+        <Key code="ArrowDown" height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '0px 0px 4px 4px' }}>
           <img width={20} src={ArrowLeft} style={{ transform: 'rotate(-90deg)' }} />
         </Key>
       </div>
-      <Key fontSize={12} ><img width={20} src={ArrowRight} /></Key>
+      <Key code="ArrowRight" fontSize={12} ><img width={20} src={ArrowRight} /></Key>
     </KeyBoardRow>
   </div>
 }
