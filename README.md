@@ -1,6 +1,7 @@
 # KeyKey
-A for typing practice tool writing in react.All ui is reference to [keykey](https://apps.apple.com/us/app/keykey-typing-practice/id1035137927?mt=12)
+A typing practice tool writing in react.All ui is reference to [keykey](https://apps.apple.com/us/app/keykey-typing-practice/id1035137927?mt=12)
 
+![Screen Recording](/images/keykey.gif)
 
 ## Features
 - [x] Keyboard and event listening
