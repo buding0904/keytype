@@ -3,6 +3,8 @@ A typing practice tool writing in react.All ui is reference to [keykey](https://
 
 ![Screen Recording](/images/keykey.gif)
 
+[DEMO](https://keykey.tilemoon.life/)
+
 ## Features
 - [x] Keyboard and event listening
 - [x] text generator and input checker
