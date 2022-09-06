@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emotion/css": "11.10.0",
+    "@faker-js/faker": "7.5.0",
     "@tilemoon/react-theme-manager": "0.4.0",
     "normalize.css": "8.0.1",
     "react": "^18.2.0",

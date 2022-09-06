@@ -11,12 +11,6 @@ export enum KeyWidth {
   wSpace = 312,
 }
 
-const enum HighlightColor {
-  pressed = 'rgba(122, 122, 122, 0.7)',
-  correct = 'rgba(100, 200, 100, 0.5)',
-  typo = 'rgba(255, 80, 120, 0.5)',
-}
-
 interface KeyProps {
   code: string
   textPosition?: 'cc' | 'ct' | 'cl' | 'cr' | 'cb' | 'lb' | 'rb'
@@ -57,7 +51,7 @@ const Key: FC<KeyProps> = ({
     return ''
   }, [textPosition])
 
-  const highlight = (color: HighlightColor) => {
+  const highlight = (color: string) => {
     setHighlightCss(`
       background-color: ${color};
     `)
@@ -73,7 +67,7 @@ const Key: FC<KeyProps> = ({
   useEffect(() => {
     onKeydown(e => {
       if (e.code == code) {
-        highlight(HighlightColor.typo)
+        highlight(theme.colors.keyPressed)
       }
     })
   }, [code])

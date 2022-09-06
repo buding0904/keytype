@@ -3,23 +3,17 @@ import Keyboard from './widget/keyboard'
 
 import './App.css'
 import { css } from '@emotion/css'
-import { KeyKeyTheme, useTheme } from './theme'
+import TextChecker from './widget/text-checker'
+import generateText from './text-generator'
 
 const App: FC = () => {
-  const { theme } = useTheme<KeyKeyTheme>()
-
   return <div className={css`
     display: flex;
     flex-direction: column;
     align-items: center;
   `}>
     <div className={css``}></div>
-    <div className={css`
-      color: ${theme.colors.font};
-      font-size: 20px;
-      margin: 24px 0px;
-      letter-spacing: 0.1rem;
-    `}>asfb</div>
+    <TextChecker text={generateText({})}></TextChecker>
     <Keyboard></Keyboard>
   </div>
 }
