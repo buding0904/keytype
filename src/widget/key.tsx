@@ -51,14 +51,14 @@ const Key: FC<KeyProps> = ({
     return ''
   }, [textPosition])
 
-  const highlight = (color: string) => {
+  const highlight = (color: string, duration = 3) => {
     setHighlightCss(`
       background-color: ${color};
     `)
 
     setTimeout(() => {
       setHighlightCss(`
-        transition: background-color 3s;
+        transition: background-color ${duration}s;
         background-color: unset;
       `)
     }, 200)
@@ -67,7 +67,7 @@ const Key: FC<KeyProps> = ({
   useEffect(() => {
     onKeydown(e => {
       if (e.code == code) {
-        highlight(theme.colors.keyPressed)
+        highlight(theme.colors.keyPressed, 1)
       }
     })
   }, [code])

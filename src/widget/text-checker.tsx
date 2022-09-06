@@ -10,7 +10,6 @@ enum LetterStatus {
 }
 
 interface LetterProps {
-  showCursor?: boolean
   children?: React.ReactNode
   status?: LetterStatus
 }
@@ -40,9 +39,10 @@ const Letter: FC<LetterProps> = ({
 
 interface TextCheckerProps {
   text: string
+  onFinished: () => void
 }
 
-const TextChecker: FC<TextCheckerProps> = ({ text }) => {
+const TextChecker: FC<TextCheckerProps> = ({ text, onFinished }) => {
   const { theme } = useTheme<KeyKeyTheme>()
 
   const letters = [...text]
@@ -62,12 +62,19 @@ const TextChecker: FC<TextCheckerProps> = ({ text }) => {
     setInput('')
   }, [text])
 
+  useEffect(() => {
+    if (input.length === text.length) {
+      onFinished()
+    }
+  }, [input, text, onFinished])
+
   return <div className={css`
     color: ${theme.colors.font};
     font-size: 20px;
     margin: 80px 0px;
     letter-spacing: 0.1rem;
     font-family: 'Code New Roman', sans-serif;
+    text-align: center;
   `}>
     {
       letters.map((letter, i) => {

@@ -10,7 +10,10 @@ const generateText = (options: TextGeneratorOptions): string => {
   let text = ''
 
   while (text.length < MAX_LENGTH) {
-    text += ' ' + faker.lorem.word()
+    if (text !== '') {
+      text += ' '
+    }
+    text += faker.lorem.word()
   }
   return text
 }

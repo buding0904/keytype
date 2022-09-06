@@ -1,10 +1,30 @@
 # KeyKey
 A for typing practice tool writing in react.All ui is reference to [keykey](https://apps.apple.com/us/app/keykey-typing-practice/id1035137927?mt=12)
 
+
+## Features
+- [x] Keyboard and event listening
+- [x] text generator and input checker
+- [ ] information statistics like char/min, accuracy, typos, etc.
+- [ ] text generator options like number, caps, etc.
+- [ ] custom article text import.
+- [ ] helper utilities like key hint, error sound, etc.
+
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### install dependencies
 
+i usually use `yarn` to install npm dependencies,you can use others if you like.
+
+```bash
+yarn
+```
+
+### run dev mode
+
+```bash
+yarn dev
+```
 ## Running the tests
 
 Not any test script yet.
@@ -14,6 +34,7 @@ Not any test script yet.
 * [React](https://reactjs.org/) - The web framework used
 * [Typescript](https://www.typescriptlang.org/) - Programming Language used
 * [Emotion](https://emotion.sh/docs/introduction) - Styling library used
+* [Faker](https://fakerjs.dev/) - text generator used
 * [Vite](https://vitejs.dev/) - Scaffolding tool
 
 ## Contributing
