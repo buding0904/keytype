@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker'
+import randWord from 'random-words'
 
 interface TextGeneratorOptions {
 
@@ -13,7 +13,7 @@ const generateText = (options: TextGeneratorOptions): string => {
     if (text !== '') {
       text += ' '
     }
-    text += faker.lorem.word()
+    text += randWord(1)
   }
   return text
 }

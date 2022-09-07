@@ -37,7 +37,7 @@ Not any test script yet.
 * [React](https://reactjs.org/) - The web framework used
 * [Typescript](https://www.typescriptlang.org/) - Programming Language used
 * [Emotion](https://emotion.sh/docs/introduction) - Styling library used
-* [Faker](https://fakerjs.dev/) - text generator used
+* [random-words](https://github.com/apostrophecms/random-words) - text generator used
 * [Vite](https://vitejs.dev/) - Scaffolding tool
 
 ## Contributing
