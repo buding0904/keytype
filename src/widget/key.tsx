@@ -1,7 +1,9 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { css } from '@emotion/css'
 import { KeyKeyTheme, useTheme } from '../theme'
 import { onKeydown } from '../events'
+
+import globalContext from '../context/global'
 
 export enum KeyWidth {
   w0 = 72,
@@ -31,6 +33,8 @@ const Key: FC<KeyProps> = ({
   children,
 }) => {
   const { theme } = useTheme<KeyKeyTheme>()
+  const { curChar } = useContext(globalContext)
+
   const [highlightCss, setHighlightCss] = useState('')
 
   const textPositionCss = useMemo<string>(() => {

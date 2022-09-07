@@ -1,6 +1,8 @@
 import { css } from "@emotion/css";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { KeyKeyTheme, useTheme } from '../theme'
+
+import globalContext from '../context/global'
 
 enum LetterStatus {
   cursor,
@@ -44,9 +46,10 @@ interface TextCheckerProps {
 const TextChecker: FC<TextCheckerProps> = ({ text, onFinished }) => {
   const { theme } = useTheme<KeyKeyTheme>()
 
+  const { input, setInput } = useContext(globalContext)
+
   const letters = [...text]
   const inputRef = useRef<HTMLInputElement>(null)
-  const [input, setInput] = useState('')
 
   useEffect(() => {
     if (inputRef.current != null) {

@@ -1,19 +1,23 @@
-import { FC, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import { MacKeyBoard } from './widget/keyboard'
 
 import { css } from '@emotion/css'
 import TextChecker from './widget/text-checker'
+import Statistics from './widget/statistics'
+
 import generateText from './text-generator'
+import globalContext from './context/global'
 
 const App: FC = () => {
-  const [text, setText] = useState(generateText({}))
+  const { text, setText } = useContext(globalContext)
 
   return <div className={css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 80px;
   `}>
-    <div className={css``}></div>
+    <Statistics></Statistics>
     <TextChecker text={text} onFinished={() => {
       setText(generateText({}))
     }}></TextChecker>

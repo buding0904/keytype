@@ -18,11 +18,7 @@ const KeyBoardRow: FC<KeyBoardRowProps> = ({ children }) => {
   </div>
 }
 
-
-interface KeyBoardProps {
-}
-
-export const MacKeyBoard: FC<KeyBoardProps> = () => {
+export const MacKeyBoard: FC<{}> = () => {
   return <div className={css`
     width: 920px;
 
