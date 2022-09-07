@@ -31,7 +31,7 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
     }
   `}>
     <KeyBoardRow>
-      <Key code="Escape">`</Key>
+      <Key code="Backquote">`</Key>
       <Key code="Digit1">1</Key>
       <Key code="Digit2">2</Key>
       <Key code="Digit2">3</Key>
@@ -44,7 +44,7 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
       <Key code="Digit0">0</Key>
       <Key code="Minus">-</Key>
       <Key code="Equal">=</Key>
-      <Key code="Backspace" width={KeyWidth.w1} fontSize={12} textPosition="rb">delete</Key>
+      <Key code="Backspace" width={KeyWidth.w1} fontSize={12} textPosition="rb">backspace</Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
@@ -130,7 +130,7 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
           </>
         )
       }
-      
+
       <Key code="ArrowLeft" fontSize={12}><img width={20} src={ArrowLeft} /></Key>
       <div className={css`
         display: flex;
