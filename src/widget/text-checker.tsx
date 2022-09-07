@@ -104,6 +104,12 @@ const TextChecker: FC<TextCheckerProps> = ({ text, onFinished }) => {
           outline: 'none',
           padding: 0,
         }}
+        onKeyDown={e => {
+          // prevent cursor change when input arrow keys.
+          if (e.code.startsWith('Arrow')) {
+            e.preventDefault()
+          }
+        }}
         onChange={e => setInput(e.target.value)}
       ></input>
     </form>

@@ -74,6 +74,7 @@ const Key: FC<KeyProps> = ({
 
   return <div style={style} className={css`
     font-size: ${fontSize}px;
+    font-weight: 600;
     color: ${theme.colors.keyFont};
     border: 1px solid ${theme.colors.keyBorder};
     height: ${height}px;
