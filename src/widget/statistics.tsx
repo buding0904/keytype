@@ -21,10 +21,7 @@ const Item: FC<ItemProps> = ({
   label,
   isPercent = false,
 }) => {
-  return <div className={css`
-    display: flex;
-    align-items: center;
-  `}>
+  return <div className="f a-c">
     <div className={css`
       width: 60px;
       height: 60px;
@@ -40,8 +37,7 @@ const Item: FC<ItemProps> = ({
       color: white;
       margin-left: 16px;
     `}>
-      <div className={css`
-      `}>
+      <div>
         <span className={css`
           font-size: 44px;
         `}>{data}</span>
@@ -58,9 +54,7 @@ const Item: FC<ItemProps> = ({
 const Statistics: FC<{}> = () => {
   const { stat } = useContext(globalContext)
 
-  return <div className={css`
-    display: flex;
-  `}>
+  return <div className="f">
     <Item icon={WindSvg} data={stat.speed} label="char/min" />
     <SpaceBox width={120} />
     <Item icon={MedalSvg} data={stat.accuracy} label="accuracy" isPercent />

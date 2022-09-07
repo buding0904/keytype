@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useMemo, useState } from "react"
-import generateText from '../text-generator'
+import generateText from '../generator/text'
 
 interface StatData {
   speed: number

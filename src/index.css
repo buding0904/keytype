@@ -2,4 +2,31 @@
 
 body {
   background-color: var(--page-bg);
+  padding-top: 80px;
 }
+
+/** basic css often used. **/
+
+/* flex */
+.f {
+  display: flex;
+}
+
+.f-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.a-c {
+  align-items: center;
+}
+
+.j-c {
+  justify-content: center;
+}
+
+.j-sb {
+  justify-content: space-between;
+}
+
+/* spacing */

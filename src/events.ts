@@ -2,20 +2,20 @@ interface KeyDownCallback {
   (e: KeyboardEvent): void
 }
 
-const events: KeyDownCallback[] = []
+const keydownListeners: KeyDownCallback[] = []
 
 window.addEventListener('keydown', (e) => {
-  events.forEach(keydown => keydown(e))
+  keydownListeners.forEach(keydown => keydown(e))
 })
 
 export const onKeydown = (cb: KeyDownCallback) => {
-  events.push(cb)
+  keydownListeners.push(cb)
 
   return () => {
-    const index = events.findIndex(item => item === cb)
+    const index = keydownListeners.findIndex(item => item === cb)
 
     if (index > -1) {
-      events.splice(index, 1)
+      keydownListeners.splice(index, 1)
     }
   }
 }

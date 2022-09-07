@@ -10,10 +10,7 @@ interface KeyBoardRowProps {
 }
 
 const KeyBoardRow: FC<KeyBoardRowProps> = ({ children }) => {
-  return <div className={css`
-    display: flex;
-    justify-content: space-between;
-  `}>
+  return <div className="f j-sb">
     {children}
   </div>
 }
@@ -128,11 +125,7 @@ export const MacKeyBoard: FC<{}> = () => {
       }
 
       <Key code="ArrowLeft" fontSize={12}><img width={20} src={ArrowLeft} /></Key>
-      <div className={css`
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      `}>
+      <div className="f-col j-sb">
         <Key code="ArrowUp" height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '4px 4px 0px 0px' }}>
           <img width={20} src={ArrowLeft} style={{ transform: 'rotate(90deg)' }} />
         </Key>
