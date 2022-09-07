@@ -1,6 +1,5 @@
 import { css } from "@emotion/css";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
-import { onKeydown } from "../events";
 import { KeyKeyTheme, useTheme } from '../theme'
 
 enum LetterStatus {
@@ -88,11 +87,12 @@ const TextChecker: FC<TextCheckerProps> = ({ text, onFinished }) => {
       })
     }
     <form>
+      {/* used for disabling form auto submit. */}
+      <input type='text' style={{ display: 'none' }}></input>
       <input
         value={input}
         ref={inputRef}
         autoFocus
-
         // used for disabling any IMEs.
         type="password"
         autoComplete="false"

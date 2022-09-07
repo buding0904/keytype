@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
 import { FC } from "react";
 import Key, { KeyWidth } from "./key";
+import { isWindows } from '../utils'
 import ArrowLeft from '../assets/arrow-left.svg'
 import ArrowRight from '../assets/arrow-right.svg'
 
@@ -30,7 +31,7 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
     }
   `}>
     <KeyBoardRow>
-      <Key code="Escape">`</Key>
+      <Key code="Backquote">`</Key>
       <Key code="Digit1">1</Key>
       <Key code="Digit2">2</Key>
       <Key code="Digit2">3</Key>
@@ -43,7 +44,7 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
       <Key code="Digit0">0</Key>
       <Key code="Minus">-</Key>
       <Key code="Equal">=</Key>
-      <Key code="Backspace" width={KeyWidth.w1} fontSize={12} textPosition="rb">delete</Key>
+      <Key code="Backspace" width={KeyWidth.w1} fontSize={12} textPosition="rb">backspace</Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
@@ -60,7 +61,7 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
       <Key code="KeyP">P</Key>
       <Key code="BracketLeft">[</Key>
       <Key code="BracketRight">]</Key>
-      <Key code="BackSlash">\</Key>
+      <Key code="Backslash">\</Key>
     </KeyBoardRow>
 
     <KeyBoardRow>
@@ -98,13 +99,38 @@ export const MacKeyBoard: FC<KeyBoardProps> = () => {
     </KeyBoardRow>
 
     <KeyBoardRow>
-      <Key code="Fn" fontSize={12} textPosition="lb">fn</Key>
-      <Key code="ControlLeft" fontSize={12} textPosition="cb">control</Key>
-      <Key code="AltLeft" fontSize={12} textPosition="cb">option</Key>
-      <Key code="MetaLeft" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
+      {
+        isWindows ? (
+          <>
+            <Key code="ControlLeft" fontSize={12} textPosition="cb">ctrl</Key>
+            <Key code="MetaLeft" width={KeyWidth.w0} fontSize={12} textPosition="cb">win</Key>
+            <Key code="AltLeft" fontSize={12} textPosition="cb">alt</Key>
+          </>
+        ) : (
+          <>
+            <Key code="Fn" fontSize={12} textPosition="lb">fn</Key>
+            <Key code="ControlLeft" fontSize={12} textPosition="cb">control</Key>
+            <Key code="AltLeft" fontSize={12} textPosition="cb">option</Key>
+            <Key code="MetaLeft" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
+          </>
+        )
+      }
       <Key code="Space" width={KeyWidth.wSpace}></Key>
-      <Key code="MetaRight" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
-      <Key code="AltRight" fontSize={12} textPosition="cb">option</Key>
+      {
+        isWindows ? (
+          <>
+            <Key code="AltRight" fontSize={12} textPosition="cb">alt</Key>
+            <Key code="Fn" fontSize={12} textPosition="cb">fn</Key>
+            <Key code="ControlRight" fontSize={12} textPosition="cb">ctrl</Key>
+          </>
+        ) : (
+          <>
+            <Key code="MetaRight" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
+            <Key code="AltRight" fontSize={12} textPosition="cb">{isWindows ? 'alt' : 'option'}</Key>
+          </>
+        )
+      }
+
       <Key code="ArrowLeft" fontSize={12}><img width={20} src={ArrowLeft} /></Key>
       <div className={css`
         display: flex;
