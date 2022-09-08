@@ -6,7 +6,7 @@ const HiddenInput: FC<{ onFinished: () => void }> = ({
   onFinished,
 }) => {
 
-  const { text, input, setInput } = useContext(globalContext)
+  const { text, input, setInput, status } = useContext(globalContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -53,7 +53,11 @@ const HiddenInput: FC<{ onFinished: () => void }> = ({
           e.preventDefault()
         }
       }}
-      onChange={e => setInput(e.target.value)}
+      onChange={e => {
+        if (status === 'recording') {
+          setInput(e.target.value)
+        }
+      }}
     ></input>
   </form>
 }

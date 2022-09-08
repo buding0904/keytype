@@ -1,6 +1,7 @@
 import { css } from "@emotion/css";
-import { FC, useContext, useMemo } from "react";
+import { FC, useContext, useEffect, useMemo } from "react";
 import { KeyKeyTheme, useTheme } from '../theme'
+import { onKeydown } from '../events'
 
 import globalContext from '../context/global'
 
@@ -44,9 +45,17 @@ interface TextCheckerProps {
 
 const TextChecker: FC<TextCheckerProps> = ({ text }) => {
   const { theme } = useTheme<KeyKeyTheme>()
-  const { input } = useContext(globalContext)
+  const { input, status, setStatus } = useContext(globalContext)
 
   const letters = [...text]
+
+  useEffect(() => {
+    return onKeydown(e => {
+      if (e.code === 'Enter' && status === 'ready') {
+        setStatus('recording')
+      }
+    })
+  }, [status])
 
   return <div className={css`
     color: ${theme.colors.font};

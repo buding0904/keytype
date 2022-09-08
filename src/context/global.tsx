@@ -7,6 +7,8 @@ interface StatData {
   typos: number
 }
 
+type KeyKeyStatus = 'ready' | 'recording' | 'pause'
+
 interface GlobalContextProps {
   text: string
   setText: React.Dispatch<React.SetStateAction<string>>
@@ -15,6 +17,9 @@ interface GlobalContextProps {
   setInput: React.Dispatch<React.SetStateAction<string>>
 
   curChar: string
+
+  status: KeyKeyStatus
+  setStatus: React.Dispatch<React.SetStateAction<KeyKeyStatus>>
 
   stat: StatData
   setStat: React.Dispatch<React.SetStateAction<StatData>>
@@ -30,6 +35,7 @@ export const GlobalCtxProvider: React.FC<{ children: ReactNode }> = ({ children 
     accuracy: 0,
     typos: 0,
   })
+  const [status, setStatus] = useState<KeyKeyStatus>('ready')
 
   const curChar = useMemo(() => text[input.length], [text, input])
 
@@ -41,6 +47,9 @@ export const GlobalCtxProvider: React.FC<{ children: ReactNode }> = ({ children 
 
     stat,
     setStat,
+
+    status,
+    setStatus,
 
     curChar,
   }}>

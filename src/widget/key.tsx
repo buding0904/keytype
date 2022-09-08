@@ -15,6 +15,7 @@ export enum KeyWidth {
 
 interface KeyProps {
   code: string
+  hint?: boolean
   textPosition?: 'cc' | 'ct' | 'cl' | 'cr' | 'cb' | 'lb' | 'rb'
   fontSize?: number
   width?: number
@@ -25,6 +26,7 @@ interface KeyProps {
 
 const Key: FC<KeyProps> = ({
   code,
+  hint = false,
   textPosition = 'cc',
   fontSize = 14,
   height = 54,
@@ -55,6 +57,19 @@ const Key: FC<KeyProps> = ({
     return ''
   }, [textPosition])
 
+  const hintCss = useMemo<string>(() => {
+    if (hint) {
+      return `
+        animation-name: key-breath;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-timing-function: linear;
+      `
+    }
+    return ''
+  }, [hint])
+
   const highlight = (color: string, duration = 3) => {
     setHighlightCss(`
       background-color: ${color};
@@ -78,11 +93,11 @@ const Key: FC<KeyProps> = ({
 
   return <div style={style} className={css`
     font-size: ${fontSize}px;
-    font-weight: 600;
-    color: ${theme.colors.keyFont};
-    border: 1px solid ${theme.colors.keyBorder};
     height: ${height}px;
     width: ${width}px;
+    font-weight: 600;
+    color: var(--key-font);
+    border: 1px solid var(--key-border);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -90,6 +105,7 @@ const Key: FC<KeyProps> = ({
     padding: 4px;
     ${highlightCss}
     ${textPositionCss}
+    ${hintCss}
   `}>
     {children}
   </div>

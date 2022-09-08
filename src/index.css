@@ -30,3 +30,16 @@ body {
 }
 
 /* spacing */
+
+
+/* animations */
+
+@keyframes key-breath {
+  from {
+    background-color: unset;
+  }
+
+  to {
+    background-color: rgba(90, 163, 232, 0.4);
+  }
+}

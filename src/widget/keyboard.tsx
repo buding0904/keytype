@@ -1,9 +1,19 @@
 import { css } from "@emotion/css";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import Key, { KeyWidth } from "./key";
 import { isWindows } from '../utils'
 import ArrowLeft from '../assets/arrow-left.svg'
 import ArrowRight from '../assets/arrow-right.svg'
+
+import globalContext from '../context/global'
+
+const KeyboardCss = css`
+  width: 920px;
+
+  & > div:not(:last-child) {
+    margin-bottom: 12px;
+  }
+`
 
 interface KeyBoardRowProps {
   children?: React.ReactNode
@@ -16,13 +26,9 @@ const KeyBoardRow: FC<KeyBoardRowProps> = ({ children }) => {
 }
 
 export const MacKeyBoard: FC<{}> = () => {
-  return <div className={css`
-    width: 920px;
+  const { status } = useContext(globalContext)
 
-    & > div:not(:last-child) {
-      margin-bottom: 12px;
-    }
-  `}>
+  return <div className={KeyboardCss}>
     <KeyBoardRow>
       <Key code="Backquote">`</Key>
       <Key code="Digit1">1</Key>
@@ -70,7 +76,7 @@ export const MacKeyBoard: FC<{}> = () => {
       <Key code="KeyL">L</Key>
       <Key code="Semicolon">;</Key>
       <Key code="Quote">'</Key>
-      <Key code="Enter" width={KeyWidth.w2} fontSize={12} textPosition="cr">
+      <Key hint={status === 'ready'} code="Enter" width={KeyWidth.w2} fontSize={12} textPosition="cr">
         <span style={{ marginBottom: 16 }}>enter</span>
         <span>return</span>
       </Key>
