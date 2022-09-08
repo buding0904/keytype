@@ -43,3 +43,11 @@ body {
     background-color: rgba(90, 163, 232, 0.4);
   }
 }
+
+.key-breath {
+  animation-name: key-breath;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}

@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useMemo, useState } from "react";
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { KeyKeyTheme, useTheme } from '../theme'
 import { onKeydown } from '../events'
 
@@ -57,19 +57,6 @@ const Key: FC<KeyProps> = ({
     return ''
   }, [textPosition])
 
-  const hintCss = useMemo<string>(() => {
-    if (hint) {
-      return `
-        animation-name: key-breath;
-        animation-duration: 1.5s;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-        animation-timing-function: linear;
-      `
-    }
-    return ''
-  }, [hint])
-
   const highlight = (color: string, duration = 3) => {
     setHighlightCss(`
       background-color: ${color};
@@ -84,14 +71,14 @@ const Key: FC<KeyProps> = ({
   }
 
   useEffect(() => {
-    onKeydown(e => {
+    return onKeydown(e => {
       if (e.code == code) {
-        highlight(theme.colors.keyPressed, 1)
+        highlight(theme.colors.keyPressed, 0.8)
       }
     })
   }, [code])
 
-  return <div style={style} className={css`
+  return <div style={style} className={cx(hint ? 'key-breath' : '',css`
     font-size: ${fontSize}px;
     height: ${height}px;
     width: ${width}px;
@@ -105,8 +92,7 @@ const Key: FC<KeyProps> = ({
     padding: 4px;
     ${highlightCss}
     ${textPositionCss}
-    ${hintCss}
-  `}>
+  `)}>
     {children}
   </div>
 }
