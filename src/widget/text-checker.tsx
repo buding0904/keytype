@@ -75,9 +75,11 @@ const TextChecker: FC<TextCheckerProps> = ({ text }) => {
         typos: stat.typos + 1,
       }))
     }
-
-    setInputLen(input.length)
   }, [input, text, status])
+
+  useEffect(() => {
+    setInputLen(input.length)
+  }, [input])
 
   return <div className={TextCheckerCss}>
     {
