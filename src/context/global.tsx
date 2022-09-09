@@ -16,8 +16,6 @@ interface GlobalContextProps {
   input: string
   setInput: React.Dispatch<React.SetStateAction<string>>
 
-  curChar: string
-
   status: KeyKeyStatus
   setStatus: React.Dispatch<React.SetStateAction<KeyKeyStatus>>
 
@@ -37,8 +35,6 @@ export const GlobalCtxProvider: React.FC<{ children: ReactNode }> = ({ children 
   })
   const [status, setStatus] = useState<KeyKeyStatus>('ready')
 
-  const curChar = useMemo(() => text[input.length], [text, input])
-
   return <ctx.Provider value={{
     text,
     setText,
@@ -50,8 +46,6 @@ export const GlobalCtxProvider: React.FC<{ children: ReactNode }> = ({ children 
 
     status,
     setStatus,
-
-    curChar,
   }}>
     {children}
   </ctx.Provider>
