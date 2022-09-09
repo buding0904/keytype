@@ -1,6 +1,5 @@
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { css, cx } from '@emotion/css'
-import { KeyKeyTheme, useTheme } from '../theme'
 import { onKeydown } from '../events'
 
 import globalContext from '../context/global'
@@ -34,9 +33,6 @@ const Key: FC<KeyProps> = ({
   style,
   children,
 }) => {
-  const { theme } = useTheme<KeyKeyTheme>()
-  const { curChar } = useContext(globalContext)
-
   const [highlightCss, setHighlightCss] = useState('')
 
   const textPositionCss = useMemo<string>(() => {
@@ -73,7 +69,7 @@ const Key: FC<KeyProps> = ({
   useEffect(() => {
     return onKeydown(e => {
       if (e.code == code) {
-        highlight(theme.colors.keyPressed, 0.8)
+        highlight('var(--key-pressed)', 0.8)
       }
     })
   }, [code])
