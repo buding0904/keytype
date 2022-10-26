@@ -1,5 +1,6 @@
-import React, { createContext, ReactNode, useMemo, useState } from "react"
+import React, { createContext, ReactNode, useEffect, useMemo, useState } from "react"
 import generateText from '../generator/text'
+import { DurationTimer, useDurationTimer } from "../utils"
 
 interface StatData {
   speed: number
@@ -7,7 +8,11 @@ interface StatData {
   typos: number
 }
 
-type KeyKeyStatus = 'ready' | 'recording' | 'pause'
+export enum KeyboardStatus {
+  ready = 'ready',
+  recording = 'recording',
+  pause = 'pause'
+}
 
 interface GlobalContextProps {
   text: string
@@ -16,11 +21,13 @@ interface GlobalContextProps {
   input: string
   setInput: React.Dispatch<React.SetStateAction<string>>
 
-  status: KeyKeyStatus
-  setStatus: React.Dispatch<React.SetStateAction<KeyKeyStatus>>
+  status: KeyboardStatus
+  setStatus: React.Dispatch<React.SetStateAction<KeyboardStatus>>
 
   stat: StatData
   setStat: React.Dispatch<React.SetStateAction<StatData>>
+
+  durationTimer: DurationTimer
 }
 
 const ctx = createContext<GlobalContextProps>({} as GlobalContextProps)
@@ -33,7 +40,16 @@ export const GlobalCtxProvider: React.FC<{ children: ReactNode }> = ({ children 
     accuracy: 0,
     typos: 0,
   })
-  const [status, setStatus] = useState<KeyKeyStatus>('ready')
+  const [status, setStatus] = useState<KeyboardStatus>(KeyboardStatus.ready)
+  const durationTimer = useDurationTimer()
+
+  useEffect(() => {
+    if (status == KeyboardStatus.recording) {
+      durationTimer.continue()
+    } else {
+      durationTimer.pause()
+    }
+  }, [status])
 
   return <ctx.Provider value={{
     text,
@@ -46,6 +62,8 @@ export const GlobalCtxProvider: React.FC<{ children: ReactNode }> = ({ children 
 
     status,
     setStatus,
+
+    durationTimer,
   }}>
     {children}
   </ctx.Provider>

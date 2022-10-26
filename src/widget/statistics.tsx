@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { FC, useContext, useMemo } from "react"
 import { css } from "@emotion/css"
 
 import WindSvg from '../assets/wind.svg'
@@ -52,10 +52,15 @@ const Item: FC<ItemProps> = ({
 }
 
 const Statistics: FC<{}> = () => {
-  const { stat } = useContext(globalContext)
+  const { stat, input, durationTimer } = useContext(globalContext)
+
+  const speed = useMemo(() => {
+    if (durationTimer.duration == 0) return 0
+    return Math.floor(input.length / durationTimer.duration * 60)
+  }, [durationTimer.duration])
 
   return <div className="f">
-    <Item icon={WindSvg} data={stat.speed} label="char/min" />
+    <Item icon={WindSvg} data={speed} label="char/min" />
     <SpaceBox width={120} />
     <Item icon={MedalSvg} data={stat.accuracy} label="accuracy" isPercent />
     <SpaceBox width={120} />

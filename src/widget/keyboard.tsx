@@ -5,7 +5,7 @@ import { isWindows } from '../utils'
 import ArrowLeft from '../assets/arrow-left.svg'
 import ArrowRight from '../assets/arrow-right.svg'
 
-import globalContext from '../context/global'
+import globalContext, { KeyboardStatus } from '../context/global'
 
 const KeyboardCss = css`
   width: 920px;
@@ -76,7 +76,7 @@ export const MacKeyBoard: FC<{}> = () => {
       <Key code="KeyL">L</Key>
       <Key code="Semicolon">;</Key>
       <Key code="Quote">'</Key>
-      <Key hint={status === 'ready'} code="Enter" width={KeyWidth.w2} fontSize={12} textPosition="cr">
+      <Key hint={status === KeyboardStatus.ready} code="Enter" width={KeyWidth.w2} fontSize={12} textPosition="cr">
         <span style={{ marginBottom: 16 }}>enter</span>
         <span>return</span>
       </Key>

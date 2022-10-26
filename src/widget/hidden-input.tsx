@@ -1,6 +1,6 @@
 import { FC, useContext, useRef, useEffect } from "react";
 
-import globalContext from '../context/global'
+import globalContext, { KeyboardStatus } from '../context/global'
 
 const HiddenInput: FC<{ onFinished: () => void }> = ({
   onFinished,
@@ -54,7 +54,7 @@ const HiddenInput: FC<{ onFinished: () => void }> = ({
         }
       }}
       onChange={e => {
-        if (status === 'recording') {
+        if (status === KeyboardStatus.recording) {
           setInput(e.target.value)
         }
       }}

@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { onKeydown } from '../events'
 
-import globalContext from '../context/global'
+import globalContext, { KeyboardStatus } from '../context/global'
 
 const TextCheckerCss = css`
   color: var(--font);
@@ -50,21 +50,21 @@ interface TextCheckerProps {
 }
 
 const TextChecker: FC<TextCheckerProps> = ({ text }) => {
-  const { input, status, setStatus, setStat } = useContext(globalContext)
+  const { input, status, setStatus, setStat, durationTimer } = useContext(globalContext)
   const [inputLen, setInputLen] = useState(input.length)
 
   const letters = [...text]
 
   useEffect(() => {
     return onKeydown(e => {
-      if (e.code === 'Enter' && status === 'ready') {
-        setStatus('recording')
+      if (e.code === 'Enter' && status === KeyboardStatus.ready) {
+        setStatus(KeyboardStatus.recording)
       }
     })
   }, [status])
 
   useEffect(() => {
-    if (status !== 'recording') return
+    if (status !== KeyboardStatus.recording) return
 
     // if backspacing, do not record typos.
     if (input.length < inputLen) return
