@@ -1,24 +1,24 @@
-import { FC, useContext } from 'react'
-import { MacKeyBoard } from './widget/keyboard'
+import { FC } from 'react'
+import context, { useInitialAppContext } from '@/context/app'
 
-import TextChecker from './widget/text-checker'
-import Statistics from './widget/statistics'
-
-import generateText from './generator/text'
-import globalContext from './context/global'
-import HiddenInput from './widget/hidden-input'
+import { Header } from './widget/header'
+import Prompter from '@/widget/prompter'
+import Statistics from '@/widget/statistics'
+import { KeyBoard } from '@/widget/keyboard'
 
 const App: FC = () => {
-  const { text, setText } = useContext(globalContext)
+  const initialContext = useInitialAppContext()
 
-  return <div className="f-col a-c">
-    <Statistics />
-    <TextChecker text={text} />
-    <HiddenInput onFinished={() => {
-      setText(generateText({}))
-    }} />
-    <MacKeyBoard />
-  </div>
+  return (
+    <context.Provider value={initialContext}>
+      <div className="flex flex-col items-center h-screen py-10vh">
+        <Header />
+        <Statistics />
+        <Prompter text={initialContext.text} />
+        <KeyBoard />
+      </div>
+    </context.Provider>
+  )
 }
 
 export default App

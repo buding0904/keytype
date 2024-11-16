@@ -1,145 +1,302 @@
-import { css } from "@emotion/css";
-import { FC, useContext } from "react";
-import Key, { KeyWidth } from "./key";
-import { isWindows } from '../utils'
-import ArrowLeft from '../assets/arrow-left.svg'
-import ArrowRight from '../assets/arrow-right.svg'
+import {
+  createContext,
+  FC,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import appContext, { TypingStatus } from '@/context/app'
 
-import globalContext, { KeyboardStatus } from '../context/global'
+type KeyboardContext = {
+  isShiftPressed: boolean
+  pressedKeyCodes: Set<string>
+}
 
-const KeyboardCss = css`
-  width: 920px;
+const keyboardCtx = createContext<KeyboardContext>({} as KeyboardContext)
 
-  & > div:not(:last-child) {
-    margin-bottom: 12px;
-  }
-`
-
-interface KeyBoardRowProps {
+const Key: FC<{
+  code?: string
+  className?: string
   children?: React.ReactNode
+}> = ({ code, children, className }) => {
+  const { pressedKeyCodes } = useContext(keyboardCtx)
+
+  const classList = useMemo<string[]>(() => {
+    const list = [
+      'h-72px border border-gray-500 rounded-md py-1 px-2 transition-all duration-300',
+    ]
+
+    if (className) {
+      list.push(className)
+    }
+
+    if (code && pressedKeyCodes.has(code)) {
+      list.push('bg-gray-600')
+    }
+
+    return list
+  }, [pressedKeyCodes, code, className])
+
+  return <div className={classList.join(' ')}>{children}</div>
 }
 
-const KeyBoardRow: FC<KeyBoardRowProps> = ({ children }) => {
-  return <div className="f j-sb">
-    {children}
-  </div>
+const LetterKey: FC<{
+  code: string
+  children?: React.ReactNode
+}> = ({ code, children }) => {
+  return (
+    <Key
+      code={code}
+      className={`${
+        code === 'Space' ? 'w-360px' : 'w-72px'
+      } key-center text-16px`}
+    >
+      {children}
+    </Key>
+  )
 }
 
-export const MacKeyBoard: FC<{}> = () => {
-  const { status } = useContext(globalContext)
+const FunctionKey: FC<{
+  code?: string
+  className: string
+  children?: React.ReactNode
+}> = ({ code, className, children }) => {
+  const classList: string[] = [className]
 
-  return <div className={KeyboardCss}>
-    <KeyBoardRow>
-      <Key code="Backquote">`</Key>
-      <Key code="Digit1">1</Key>
-      <Key code="Digit2">2</Key>
-      <Key code="Digit2">3</Key>
-      <Key code="Digit4">4</Key>
-      <Key code="Digit5">5</Key>
-      <Key code="Digit6">6</Key>
-      <Key code="Digit7">7</Key>
-      <Key code="Digit8">8</Key>
-      <Key code="Digit9">9</Key>
-      <Key code="Digit0">0</Key>
-      <Key code="Minus">-</Key>
-      <Key code="Equal">=</Key>
-      <Key code="Backspace" width={KeyWidth.w1} fontSize={12} textPosition="rb">backspace</Key>
-    </KeyBoardRow>
+  return (
+    <Key
+      code={code}
+      className={`text-14px ${classList.join(' ')}`}
+    >
+      {children}
+    </Key>
+  )
+}
 
-    <KeyBoardRow>
-      <Key code="Tab" width={KeyWidth.w1} fontSize={12} textPosition="lb">tab</Key>
-      <Key code="KeyQ">Q</Key>
-      <Key code="KeyW">W</Key>
-      <Key code="KeyE">E</Key>
-      <Key code="KeyR">R</Key>
-      <Key code="KeyT">T</Key>
-      <Key code="KeyY">Y</Key>
-      <Key code="KeyU">U</Key>
-      <Key code="KeyI">I</Key>
-      <Key code="KeyO">O</Key>
-      <Key code="KeyP">P</Key>
-      <Key code="BracketLeft">[</Key>
-      <Key code="BracketRight">]</Key>
-      <Key code="Backslash">\</Key>
-    </KeyBoardRow>
+const KeyBoardRow: FC<{ className?: string; children: React.ReactNode }> = ({
+  className,
+  children,
+}) => {
+  let finalClassName = 'flex items-center justify-center gap-2'
 
-    <KeyBoardRow>
-      <Key code="CapsLock" width={KeyWidth.w2} fontSize={12} textPosition="lb">caps lock</Key>
-      <Key code="KeyA">A</Key>
-      <Key code="KeyS">S</Key>
-      <Key code="KeyD">D</Key>
-      <Key code="KeyF">F</Key>
-      <Key code="KeyG">G</Key>
-      <Key code="KeyH">H</Key>
-      <Key code="KeyJ">J</Key>
-      <Key code="KeyK">K</Key>
-      <Key code="KeyL">L</Key>
-      <Key code="Semicolon">;</Key>
-      <Key code="Quote">'</Key>
-      <Key hint={status === KeyboardStatus.ready} code="Enter" width={KeyWidth.w2} fontSize={12} textPosition="cr">
-        <span style={{ marginBottom: 16 }}>enter</span>
-        <span>return</span>
-      </Key>
-    </KeyBoardRow>
+  if (className) {
+    finalClassName += ` ${className}`
+  }
+  return <div className={finalClassName}>{children}</div>
+}
 
-    <KeyBoardRow>
-      <Key code="ShiftLeft" width={KeyWidth.w3} fontSize={12} textPosition="lb">shift</Key>
-      <Key code="KeyZ">Z</Key>
-      <Key code="KeyX">X</Key>
-      <Key code="KeyC">C</Key>
-      <Key code="KeyV">V</Key>
-      <Key code="KeyB">B</Key>
-      <Key code="KeyN">N</Key>
-      <Key code="KeyM">M</Key>
-      <Key code="Comma">,</Key>
-      <Key code="Period">.</Key>
-      <Key code="Slash">/</Key>
-      <Key code="ShiftRight" width={KeyWidth.w3} fontSize={12} textPosition="rb">shift</Key>
-    </KeyBoardRow>
+const CommonKeyBoardRows: FC = () => {
+  const { isShiftPressed } = useContext(keyboardCtx)
 
-    <KeyBoardRow>
-      {
-        isWindows ? (
-          <>
-            <Key code="ControlLeft" fontSize={12} textPosition="cb">ctrl</Key>
-            <Key code="MetaLeft" width={KeyWidth.w0} fontSize={12} textPosition="cb">win</Key>
-            <Key code="AltLeft" fontSize={12} textPosition="cb">alt</Key>
-          </>
-        ) : (
-          <>
-            <Key code="Fn" fontSize={12} textPosition="lb">fn</Key>
-            <Key code="ControlLeft" fontSize={12} textPosition="cb">control</Key>
-            <Key code="AltLeft" fontSize={12} textPosition="cb">option</Key>
-            <Key code="MetaLeft" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
-          </>
-        )
+  return (
+    <>
+      <KeyBoardRow>
+        <LetterKey code="Backquote">{isShiftPressed ? '~' : '`'}</LetterKey>
+        <LetterKey code="Digit1">{isShiftPressed ? '!' : '1'}</LetterKey>
+        <LetterKey code="Digit2">{isShiftPressed ? '@' : '2'}</LetterKey>
+        <LetterKey code="Digit2">{isShiftPressed ? '#' : '3'}</LetterKey>
+        <LetterKey code="Digit4">{isShiftPressed ? '$' : '4'}</LetterKey>
+        <LetterKey code="Digit5">{isShiftPressed ? '%' : '5'}</LetterKey>
+        <LetterKey code="Digit6">{isShiftPressed ? '^' : '6'}</LetterKey>
+        <LetterKey code="Digit7">{isShiftPressed ? '&' : '7'}</LetterKey>
+        <LetterKey code="Digit8">{isShiftPressed ? '*' : '8'}</LetterKey>
+        <LetterKey code="Digit9">{isShiftPressed ? '(' : '9'}</LetterKey>
+        <LetterKey code="Digit0">{isShiftPressed ? ')' : '0'}</LetterKey>
+        <LetterKey code="Minus">{isShiftPressed ? '_' : '-'}</LetterKey>
+        <LetterKey code="Equal">{isShiftPressed ? '+' : '='}</LetterKey>
+        <FunctionKey
+          code="Backspace"
+          className="flex-1 key-rb"
+        >
+          delete
+        </FunctionKey>
+      </KeyBoardRow>
+
+      <KeyBoardRow>
+        <FunctionKey className="flex-1 key-lb key-disabled">tab</FunctionKey>
+        <LetterKey code="KeyQ">Q</LetterKey>
+        <LetterKey code="KeyW">W</LetterKey>
+        <LetterKey code="KeyE">E</LetterKey>
+        <LetterKey code="KeyR">R</LetterKey>
+        <LetterKey code="KeyT">T</LetterKey>
+        <LetterKey code="KeyY">Y</LetterKey>
+        <LetterKey code="KeyU">U</LetterKey>
+        <LetterKey code="KeyI">I</LetterKey>
+        <LetterKey code="KeyO">O</LetterKey>
+        <LetterKey code="KeyP">P</LetterKey>
+        <LetterKey code="BracketLeft">{isShiftPressed ? '{' : '['}</LetterKey>
+        <LetterKey code="BracketRight">{isShiftPressed ? '}' : ']'}</LetterKey>
+        <LetterKey code="Backslash">{isShiftPressed ? '|' : '\\'}</LetterKey>
+      </KeyBoardRow>
+      <KeyBoardRow>
+        <FunctionKey className="flex-1 key-lb key-disabled">
+          caps lock
+        </FunctionKey>
+        <LetterKey code="KeyA">A</LetterKey>
+        <LetterKey code="KeyS">S</LetterKey>
+        <LetterKey code="KeyD">D</LetterKey>
+        <LetterKey code="KeyF">F</LetterKey>
+        <LetterKey code="KeyG">G</LetterKey>
+        <LetterKey code="KeyH">H</LetterKey>
+        <LetterKey code="KeyJ">J</LetterKey>
+        <LetterKey code="KeyK">K</LetterKey>
+        <LetterKey code="KeyL">L</LetterKey>
+        <LetterKey code="Semicolon">{isShiftPressed ? ':' : ';'}</LetterKey>
+        <LetterKey code="Quote">{isShiftPressed ? '"' : "'"}</LetterKey>
+        <FunctionKey
+          code="Enter"
+          className="flex-1 key-rb"
+        >
+          enter
+        </FunctionKey>
+      </KeyBoardRow>
+
+      <KeyBoardRow>
+        <FunctionKey
+          code="ShiftLeft"
+          className="flex-1 key-lb"
+        >
+          shift
+        </FunctionKey>
+        <LetterKey code="KeyZ">Z</LetterKey>
+        <LetterKey code="KeyX">X</LetterKey>
+        <LetterKey code="KeyC">C</LetterKey>
+        <LetterKey code="KeyV">V</LetterKey>
+        <LetterKey code="KeyB">B</LetterKey>
+        <LetterKey code="KeyN">N</LetterKey>
+        <LetterKey code="KeyM">M</LetterKey>
+        <LetterKey code="Comma">{isShiftPressed ? '<' : ','}</LetterKey>
+        <LetterKey code="Period">{isShiftPressed ? '>' : '.'}</LetterKey>
+        <LetterKey code="Slash">{isShiftPressed ? '?' : '/'}</LetterKey>
+        <FunctionKey
+          code="ShiftRight"
+          className="flex-1 key-rb"
+        >
+          shift
+        </FunctionKey>
+      </KeyBoardRow>
+    </>
+  )
+}
+
+export const MacKeyBoard: FC = () => {
+  return (
+    <>
+      <CommonKeyBoardRows />
+
+      <KeyBoardRow className="mx-auto">
+        <FunctionKey className="w-72px key-lb key-disabled">fn</FunctionKey>
+        <FunctionKey className="w-72px key-lb key-disabled">ctrl</FunctionKey>
+        <FunctionKey className="w-72px key-lb key-disabled">option</FunctionKey>
+        <FunctionKey className="w-84px key-lb key-disabled">
+          command
+        </FunctionKey>
+        <LetterKey code="Space"></LetterKey>
+        <FunctionKey className="w-84px key-rb key-disabled">
+          command
+        </FunctionKey>
+        <FunctionKey className="w-72px key-rb key-disabled">option</FunctionKey>
+        <FunctionKey className="w-72px key-rb key-disabled">ctrl</FunctionKey>
+        <FunctionKey className="w-72px key-rb key-disabled">fn</FunctionKey>
+      </KeyBoardRow>
+    </>
+  )
+}
+
+export const WinKeyBoard: FC<{}> = () => {
+  return (
+    <>
+      <CommonKeyBoardRows />
+
+      <KeyBoardRow className="mx-auto">
+        <FunctionKey className="w-72px key-lb key-disabled">ctrl</FunctionKey>
+        <FunctionKey className="w-84px key-lb key-disabled">win</FunctionKey>
+        <FunctionKey className="w-72px key-lb key-disabled">alt</FunctionKey>
+        <LetterKey code="Space"></LetterKey>
+        <FunctionKey className="w-72px key-rb key-disabled">alt</FunctionKey>
+        <FunctionKey className="w-84px key-rb key-disabled">win</FunctionKey>
+        <FunctionKey className="w-72px key-rb key-disabled">ctrl</FunctionKey>
+      </KeyBoardRow>
+    </>
+  )
+}
+
+export const KeyBoard: FC = () => {
+  const { text, putInput, popInput, status, setStatus, refresh } =
+    useContext(appContext)
+
+  const [isShiftPressed, setIsShiftPressed] = useState(false)
+  const [pressedKeyCodes, setPressedKeyCodes] = useState<Set<string>>(new Set())
+
+  useEffect(() => {
+    function onKeydown(e: KeyboardEvent) {
+      if (e.code === 'Enter' && status === TypingStatus.end) {
+        refresh()
+      } else if (e.key === text[0] && status === TypingStatus.ready) {
+        setStatus(TypingStatus.recording)
+      } else if (status !== TypingStatus.recording) {
+        return
       }
-      <Key code="Space" width={KeyWidth.wSpace}></Key>
-      {
-        isWindows ? (
-          <>
-            <Key code="AltRight" fontSize={12} textPosition="cb">alt</Key>
-            <Key code="Fn" fontSize={12} textPosition="cb">fn</Key>
-            <Key code="ControlRight" fontSize={12} textPosition="cb">ctrl</Key>
-          </>
-        ) : (
-          <>
-            <Key code="MetaRight" width={KeyWidth.w0} fontSize={12} textPosition="cb">command</Key>
-            <Key code="AltRight" fontSize={12} textPosition="cb">{isWindows ? 'alt' : 'option'}</Key>
-          </>
-        )
+
+      setIsShiftPressed(e.shiftKey)
+      setPressedKeyCodes(codes => {
+        codes.add(e.code)
+
+        return new Set(codes)
+      })
+
+      if (e.code === 'Backspace') {
+        popInput()
+      } else if (e.key.length === 1) {
+        putInput(e.key)
+      }
+    }
+
+    window.addEventListener('keydown', onKeydown)
+
+    return () => {
+      window.removeEventListener('keydown', onKeydown)
+    }
+  }, [status, text])
+
+  useEffect(() => {
+    function onKeyup(e: KeyboardEvent) {
+      if (isShiftPressed && e.key === 'Shift') {
+        setIsShiftPressed(false)
       }
 
-      <Key code="ArrowLeft" fontSize={12}><img width={20} src={ArrowLeft} /></Key>
-      <div className="f-col j-sb">
-        <Key code="ArrowUp" height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '4px 4px 0px 0px' }}>
-          <img width={20} src={ArrowLeft} style={{ transform: 'rotate(90deg)' }} />
-        </Key>
-        <Key code="ArrowDown" height={26} fontSize={12} textPosition='cc' style={{ borderRadius: '0px 0px 4px 4px' }}>
-          <img width={20} src={ArrowLeft} style={{ transform: 'rotate(-90deg)' }} />
-        </Key>
+      setPressedKeyCodes(codes => {
+        codes.delete(e.code)
+
+        return new Set(codes)
+      })
+    }
+
+    window.addEventListener('keyup', onKeyup)
+
+    return () => {
+      window.removeEventListener('keyup', onKeyup)
+    }
+  }, [isShiftPressed])
+
+  return (
+    <div className="mt-atuo">
+      <div className="text-gray-600 text-center h-24px mb-4">
+        {status === TypingStatus.ready && <>按下文本的第一个字母开始</>}
+        {status === TypingStatus.end && <>按下回车开始下一段打字</>}
       </div>
-      <Key code="ArrowRight" fontSize={12} ><img width={20} src={ArrowRight} /></Key>
-    </KeyBoardRow>
-  </div>
+
+      <keyboardCtx.Provider
+        value={{
+          isShiftPressed,
+          pressedKeyCodes,
+        }}
+      >
+        <div className="w-1150px flex flex-col gap-2">
+          {_isWindows ? <WinKeyBoard /> : <MacKeyBoard />}
+        </div>
+      </keyboardCtx.Provider>
+    </div>
+  )
 }

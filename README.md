@@ -1,49 +1,24 @@
-# KeyKey
-A typing practice tool writing in react.All ui is reference to [keykey](https://apps.apple.com/us/app/keykey-typing-practice/id1035137927?mt=12)
+<h1>
+  KeyType
+</h1>
 
-![Screen Recording](/images/keykey.gif)
+<p>
+  一款简约的纯客户端打字练习软件，没有复杂繁琐的功能，仅在于练习打字
+</p>
 
-[DEMO](https://keykey.tilemoon.life/)
+<div align=center>
+<img  src="images/keytype.gif"/>
+</div>
 
-## Features
-- [x] Keyboard and event listening
-- [x] text generator and input checker
-- [ ] information statistics like char/min, accuracy, typos, etc.
-- [ ] text generator options like number, caps, etc.
-- [ ] custom article text import.
-- [ ] helper utilities like key hint, error sound, etc.
+<br />
 
-## Getting Started
+## 运行项目
 
-### install dependencies
+本项目是基于`React`开发的，需要 node 环境来运行。
 
-i usually use `yarn` to install npm dependencies,you can use others if you like.
+### 安装和运行
 
-```bash
-yarn
-```
-
-### run dev mode
-
-```bash
-yarn dev
-```
-## Running the tests
-
-Not any test script yet.
-
-## Built With
-
-* [React](https://reactjs.org/) - The web framework used
-* [Typescript](https://www.typescriptlang.org/) - Programming Language used
-* [Emotion](https://emotion.sh/docs/introduction) - Styling library used
-* [random-words](https://github.com/apostrophecms/random-words) - text generator used
-* [Vite](https://vitejs.dev/) - Scaffolding tool
-
-## Contributing
-
-Welcome to contribute to this repo.There is not a lot of requirements,so make a PR!!.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+1. 安装 NodeJS，参考[官方文档](https://nodejs.org/en/download)
+2. 克隆代码仓库，移动至项目根目录
+3. 推荐使用 `pnpm install` 安装依赖
+4. 运行 `pnpm run dev` 启动本地环境，浏览器会自动打开相应的窗口

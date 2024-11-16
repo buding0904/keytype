@@ -1,6 +1,6 @@
 .PHONY: deploy
 deploy:
-	@yarn build
+	@pnpm run build
 	@echo "vite build successed."
-	@rsync -r dist/* server:/var/www/keykey/
+	@rsync -r dist/* server:/var/www/keytype/
 	@echo "deploy successed."

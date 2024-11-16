@@ -1,71 +1,50 @@
-import { FC, useContext, useMemo } from "react"
-import { css } from "@emotion/css"
+import { FC, useContext } from 'react'
 
-import WindSvg from '../assets/wind.svg'
-import MedalSvg from '../assets/medal.svg'
-import TypoSvg from '../assets/typo.svg'
-import { SpaceBox } from "./common"
+import appContext from '@/context/app'
+import { Icon } from '@/widget/common'
 
-import globalContext from '../context/global'
-
-interface ItemProps {
+const Item: FC<{
   icon: string
-  data: number
+  data: string
   label: string
-  isPercent?: boolean
-}
+}> = ({ icon, data, label }) => {
+  return (
+    <div className="flex items-center gap-2">
+      <Icon
+        name={icon}
+        className="box-content w-36px rounded-full bg-gray-700 p-3"
+      ></Icon>
 
-const Item: FC<ItemProps> = ({
-  icon,
-  data,
-  label,
-  isPercent = false,
-}) => {
-  return <div className="f a-c">
-    <div className={css`
-      width: 60px;
-      height: 60px;
-      background-color: #414044;
-      border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    `}>
-      <img src={icon} height={30}></img>
-    </div>
-    <div className={css`
-      color: white;
-      margin-left: 16px;
-    `}>
-      <div>
-        <span className={css`
-          font-size: 44px;
-        `}>{data}</span>
-        { isPercent && <span className={css`font-size: 14px; margin-left: 4px;`}>%</span> }
+      <div className="flex flex-col">
+        <span className="text-24px tracking-widest">{data}</span>
+        <div>{label}</div>
       </div>
-      <div className={css`
-        color: #9B9C9A;
-        font-size: 12px;
-      `}>{label}</div>
     </div>
-  </div>
+  )
 }
 
 const Statistics: FC<{}> = () => {
-  const { stat, input, durationTimer } = useContext(globalContext)
+  const { stat } = useContext(appContext)
 
-  const speed = useMemo(() => {
-    if (durationTimer.duration == 0) return 0
-    return Math.floor(input.length / durationTimer.duration * 60)
-  }, [durationTimer.duration])
-
-  return <div className="f">
-    <Item icon={WindSvg} data={speed} label="char/min" />
-    <SpaceBox width={120} />
-    <Item icon={MedalSvg} data={stat.accuracy} label="accuracy" isPercent />
-    <SpaceBox width={120} />
-    <Item icon={TypoSvg} data={stat.typos} label="typos" />
-  </div>
+  return (
+    <div className="flex items-center gap-30">
+      <Item
+        icon="wind"
+        data={stat.speed.toString()}
+        label="char/min"
+      />
+      <Item
+        icon="medal"
+        data={`${stat.accuracy}%`}
+        label="accuracy"
+      />
+      <Item
+        icon="typo"
+        data={stat.typos.toString()}
+        label="typos"
+      />
+    </div>
+  )
 }
 
 export default Statistics

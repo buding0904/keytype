@@ -1,53 +1,22 @@
-@import url('https://fonts.cdnfonts.com/css/code-new-roman-2');
+@import url('@unocss/reset/tailwind.css');
 
 body {
-  background-color: var(--page-bg);
-  padding-top: 80px;
+  height: 100vh;
+
+  overflow: hidden;
+  font-family: NaturalMono !important;
 }
 
-/** basic css often used. **/
-
-/* flex */
-.f {
-  display: flex;
+*::-webkit-scrollbar {
+  display: none;
 }
 
-.f-col {
-  display: flex;
-  flex-direction: column;
+@font-face {
+  font-family: 'NaturalMono';
+  src: url('/fonts/NaturalMono.ttf') format('truetype');
 }
 
-.a-c {
-  align-items: center;
-}
-
-.j-c {
-  justify-content: center;
-}
-
-.j-sb {
-  justify-content: space-between;
-}
-
-/* spacing */
-
-
-/* animations */
-
-@keyframes key-breath {
-  from {
-    background-color: unset;
-  }
-
-  to {
-    background-color: rgba(90, 163, 232, 0.4);
-  }
-}
-
-.key-breath {
-  animation-name: key-breath;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: linear;
+/* override arco ui */
+div.arco-popover-content {
+  padding: 8px;
 }
