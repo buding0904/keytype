@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 
 import { Button, Popover, Divider, Switch } from '@arco-design/web-react'
-import { IosSettings } from '@ricons/ionicons4'
+import { IconSettings } from '@arco-design/web-react/icon'
 import { useDb } from '@/hooks/db'
 
 export const Header: FC = () => {
@@ -79,12 +79,9 @@ export const Header: FC = () => {
       >
         <Button
           size="small"
-          className="!px-2"
+          className="!px-2 !flex items-center"
         >
-          <IosSettings
-            className="w-20px text-gray"
-            fill="currentColor"
-          />
+          <IconSettings className="text-20px" />
         </Button>
       </Popover>
     </div>

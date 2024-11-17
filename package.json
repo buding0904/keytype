@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@arco-design/web-react": "2.64.1",
-    "@ricons/ionicons4": "0.12.0",
     "@unocss/reset": "0.64.1",
     "lodash-es": "4.17.21",
     "random-words": "2.0.1",
