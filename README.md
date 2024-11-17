@@ -12,6 +12,18 @@
 
 <br />
 
+## [DEMO](https://keytype.vercel.app/)
+
+<br />
+
+## 快速部署
+
+### Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fbuding0904%2Fkeytype)
+
+<br />
+
 ## 运行项目
 
 本项目是基于`React`开发的，需要 node 环境来运行。
